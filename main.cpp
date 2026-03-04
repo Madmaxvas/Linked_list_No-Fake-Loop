@@ -20,7 +20,7 @@ int main() {
         print_list(list_head);
 
     } catch (const std::exception& e) {
-        std::cerr << "Критическая ошибка: " << "\n";
+        std::cerr << "Internal error: " << "\n";
     }
 
     clear(list_head);
