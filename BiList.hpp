@@ -65,7 +65,7 @@ void clear(BiList<T>*& head) noexcept {
 }
 
 template<class T>
-BiList<T>* convert_array_to_list(const T* data, std::size_t size) {
+BiList<T>* convert_array_to_list(const T* data, size_t size) {
   if (size == 0 || !data) return nullptr;
 
   BiList<T>* head = nullptr;
@@ -73,7 +73,7 @@ BiList<T>* convert_array_to_list(const T* data, std::size_t size) {
     head = create_node(data[0]);
     BiList<T>* current = head;
 
-    for (std::size_t i = 1; i < size; ++i) {
+    for (size_t i = 1; i < size; ++i) {
       current = insert_after(current, data[i]);
     }
   }
@@ -88,10 +88,10 @@ template<class T>
 void print_list(const BiList<T>* head) {
   const BiList<T>* curr = head;
   while (curr) {
-    std::cout << "[" << curr->val << "]" << (curr->next ? " <-> " : "");
+    std::cout << curr->val << "\n";
     curr = curr->next;
   }
-  std::cout << std::endl;
+  std::cout << "\n";
 }
 
 #endif
