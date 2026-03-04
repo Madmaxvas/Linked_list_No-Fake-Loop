@@ -1,56 +1,29 @@
+#include "BiList.hpp"
 #include <iostream>
-#include <cstddef>
 
-template<class T>
-struct BiList
-{
-    T val;
-    BiList<T>* next;
-    BiList<T>* prev;
-};
+int main() {
+    const int initial_data[] = {1, 2, 4, 5};
+    BiList<int>* list_head = nullptr;
 
-template<class T>
-BiList<T>* convert(const T* data, const size_t s)
-{
-  if (s == 0){return nullptr;}
-  
-  BiList<T>* head = new BiList<T>{ data[0], nullptr, nullptr };
-  BiList<T>* current = head;
+    try {
+        list_head = convert_array_to_list(initial_data, 4);
+        print_list(list_head);
 
-  try{
-    for (size_t i = 1; i < s; ++i){
-      BiList<T>* newNode = new BiList<T>{ data[i], nullptr, current };
-      current->next = newNode;
-      current = newNode;
+        BiList<int>* node_two = list_head->next; 
+        insert_after(node_two, 3);
+        print_list(list_head);
+
+        list_head = erase_node(list_head);
+        print_list(list_head);
+
+        erase_after(list_head->next); 
+        print_list(list_head);
+
+    } catch (const std::exception& e) {
+        std::cerr << "Критическая ошибка: " << "\n";
     }
-  }
-  catch (...){
-    while (head != nullptr){
-      BiList<T>* temp = head;
-      head = head->next;
-      delete temp;
-    }
-  throw;
-  }
-  
-  return head;
-}
 
-template<class T>
-void clear(BiList<T>* head)
-{
-  while (head != nullptr){
-    BiList<T>* temp = head;
-    head = head->next;
-    delete temp;
-  }
-}
+    clear(list_head);
 
-int main()
-{
-  const int data[] = { 1, 2, 3 };
-  const size_t size = 3;
-  BiList<int>* list = convert(data, size);
-  clear(list);
-  return 0;
+    return 0;
 }
